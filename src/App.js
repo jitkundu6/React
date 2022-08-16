@@ -2,51 +2,42 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-import Person from './Person/Person';
+import Validation from './Validation/Validation';
+import Char from './Char/Char';
 
 class App extends Component {
   state = {
-    person: [
-      {name: "Micky", age: 5},
-      {name: "Mini", age: 4},
-      {name: "Donal", age: 6},      
-    ],
-    otherState: "This is some other state.",
+    userName: ''
   };
 
 
-  switchNameHandler = (newName) => {
-    console.log("Switch name clicked.");
+  nameChangedHandler = (event) => {
+    console.log("Name changed!");
     this.setState({
-        person: [
-          {name: newName, age: 7},
-          {name: "Mini", age: 4},
-          {name: "Donal", age: 9},      
-        ],
+        userName: event.target.value,
       });
   }
 
-  nameChangedHandler = (event) => {
-    console.log("Switch name clicked.");
+  deleteCharHandler = (index) => {
+    console.log("Delete char!");
+
+    const charList = this.state.userName.split('')
+    charList.splice(index,1);
+    const updatedText = charList.join('');
+    
     this.setState({
-        person: [
-          {name: event.target.value, age: 7},
-          {name: "Mini", age: 4},
-          {name: "Donal", age: 9},      
-        ],
+        userName: updatedText,
       });
   }
 
   render() {
     console.log(this.state);
 
-    const btStyle = {
-      backgroundColor: 'white',
-      font: 'inherit',
-      border: '1px solid blue',
-      padding: '10px',
-      cursor: 'pointer',
-    };
+    const charList = this.state.userName.split('').map((ch, index) => {
+      return (
+        <Char char={ch} key={index} click={this.deleteCharHandler.bind(this, index)}/>
+      );
+    })
 
     return (
       <div className="App">
@@ -58,23 +49,12 @@ class App extends Component {
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
 
-        <h1> My 3rd React app with User Input / Output + css :-) </h1>
-        <button 
-          onClick={() => this.switchNameHandler("Micky Mouse!")}
-          style={btStyle}>
-            Switch-Name
-        </button>
-        <Person 
-          name={this.state.person[0].name}
-          age={this.state.person[0].age}
-          changed={this.nameChangedHandler}
-          />
-        <Person 
-          name={this.state.person[1].name}
-          age={this.state.person[1].age}
-          click={this.switchNameHandler.bind(this, 'Funny Micky')}>
-            <button> I will make Micky funny! </button></Person>
-        <Person name={this.state.person[2].name} age={this.state.person[2].age} />
+        <h1> My 4th React app with User Input / Output + if condition:-) </h1>
+
+        <input type="text" value={this.state.userName} onChange={this.nameChangedHandler}/>
+        <Validation userName={this.state.userName}/>
+        {charList}
+	<p>Click the box to delete char.</p>
       </div>
     );
   }
