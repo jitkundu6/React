@@ -1,22 +1,8 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
-import './App.css';
+import AppCSS from './App.module.css';
 
 import Person from './Person/Person';
-import styled from 'styled-components';
-
-const StyledButton = styled.button`
-  background-color: ${props => props.show ? 'red' : 'green'};
-  font: inherit;
-  border: 1px solid blue;
-  padding: 10px;
-  cursor: pointer;
-  color: ${props => props.show ? 'black' : 'white'};;
-  &:hover {
-    background-color: ${props => props.show ? 'salmon' : 'lightGreen'};
-    color: black
-  }
-`;
 
 class App extends Component {
   state = {
@@ -74,7 +60,8 @@ class App extends Component {
     //     color: 'black',
     //   }
     // };
- 
+    let ButtonClasses = [AppCSS.Button]
+
     let persons = null;
     if(this.state.showPerson) {
       persons = (
@@ -99,31 +86,34 @@ class App extends Component {
       //   backgroundColor: 'salmon',
       //   color: 'black',
       // };
+      ButtonClasses.push(AppCSS.Red_button);
     }
 
-    let classes = ['green'];
+    // let classes = ['green'];
+    let classes = [AppCSS.green];
 
     if (this.state.person.length <= 1 || persons === null) {
       console.log(this.state.person.length);
-      classes = ['red', 'bold'];
+      // classes = ['red', 'bold'];
+      classes = [AppCSS.red, AppCSS.bold];
     }
 
     return (
-        <div className="App">
-          <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <h1 className="App-title">Welcome to React</h1>
+        <div className={AppCSS.App}>
+          <header className={AppCSS['App-header']}>
+            <img src={logo} className={AppCSS["App-logo"]} alt="logo" />
+            <h1 className={AppCSS["App-title"]}>Welcome to React</h1>
           </header>
-          <p className="App-intro">
+          <p className={AppCSS["App-intro"]}>
             To get started, edit <code>src/App.js</code> and save to reload.
           </p>
 
-          <h1> My 3rd React app with User Input / Output + css :-) </h1>
-          <StyledButton 
-            show={this.state.showPerson}
-            onClick={this.toggleHandler}>
+          <h1> My 5th React app with User Input / Output + css module :-) </h1>
+          <button 
+            onClick={this.toggleHandler}
+            className={ButtonClasses.join(' ')}>
               Toggle Persons
-          </StyledButton>
+          </button>
           <p className={classes.join(' ')}>
             List of Persons:
           </p>

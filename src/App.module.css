@@ -38,3 +38,27 @@
 .bold {
   font-weight: bold;
 }
+
+.Button {
+  background-color: green;
+  font: inherit;
+  border: 1px solid blue;
+  padding: 10px;
+  cursor: pointer;
+  color: white;
+}
+
+.Button:hover {
+  background-color: lightGreen;
+  color: black;
+}
+
+.Red_button {
+  background-color: red;
+  color: black;
+}
+
+.Red_button:hover {
+  background-color: salmon;
+  color: blue;
+}
