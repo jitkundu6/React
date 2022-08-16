@@ -1,9 +1,22 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Radium, {StyleRoot} from 'radium';
 
 import Person from './Person/Person';
+import styled from 'styled-components';
+
+const StyledButton = styled.button`
+  background-color: ${props => props.show ? 'red' : 'green'};
+  font: inherit;
+  border: 1px solid blue;
+  padding: 10px;
+  cursor: pointer;
+  color: ${props => props.show ? 'black' : 'white'};;
+  &:hover {
+    background-color: ${props => props.show ? 'salmon' : 'lightGreen'};
+    color: black
+  }
+`;
 
 class App extends Component {
   state = {
@@ -49,19 +62,19 @@ class App extends Component {
   render() {
     console.log(this.state);
 
-    const btStyle = {
-      backgroundColor: 'green',
-      font: 'inherit',
-      border: '1px solid blue',
-      padding: '10px',
-      cursor: 'pointer',
-      color: 'white',
-      ':hover': {
-        backgroundColor: 'lightGreen',
-        color: 'black',
-      }
-    };
-
+    // const btStyle = {
+    //   backgroundColor: 'green',
+    //   font: 'inherit',
+    //   border: '1px solid blue',
+    //   padding: '10px',
+    //   cursor: 'pointer',
+    //   color: 'white',
+    //   ':hover': {
+    //     backgroundColor: 'lightGreen',
+    //     color: 'black',
+    //   }
+    // };
+ 
     let persons = null;
     if(this.state.showPerson) {
       persons = (
@@ -80,12 +93,12 @@ class App extends Component {
           <Person name={this.state.person[2].name} age={this.state.person[2].age} />
         </div>
       );
-      btStyle.backgroundColor = 'red';
-      btStyle['color'] = 'black';
-      btStyle[':hover'] = {
-        backgroundColor: 'salmon',
-        color: 'black',
-      };
+      // btStyle.backgroundColor = 'red';
+      // btStyle['color'] = 'black';
+      // btStyle[':hover'] = {
+      //   backgroundColor: 'salmon',
+      //   color: 'black',
+      // };
     }
 
     let classes = ['green'];
@@ -96,7 +109,6 @@ class App extends Component {
     }
 
     return (
-      <StyleRoot>
         <div className="App">
           <header className="App-header">
             <img src={logo} className="App-logo" alt="logo" />
@@ -107,20 +119,19 @@ class App extends Component {
           </p>
 
           <h1> My 3rd React app with User Input / Output + css :-) </h1>
-          <button 
-            onClick={this.toggleHandler}
-            style={btStyle}>
+          <StyledButton 
+            show={this.state.showPerson}
+            onClick={this.toggleHandler}>
               Toggle Persons
-          </button>
+          </StyledButton>
           <p className={classes.join(' ')}>
             List of Persons:
           </p>
           {persons}
         </div>
-      </StyleRoot>
     );
   }
 
 }
 
-export default Radium(App);
+export default App;
