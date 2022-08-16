@@ -1,0 +1,59 @@
+.Form {
+    box-sizing: border-box;
+    font: center;
+    width: 45%;
+    height: 50%;
+    margin: 14% auto;
+    border: 0 2px 3px #000;
+    padding: 20px;
+    text-align: center;
+    background-color: rgb(37, 36, 36);
+    color: azure;
+    border-radius: 15px;
+}
+
+.Form_logo {
+    animation: App-logo-spin infinite 5s linear;
+    height: 50px;
+}
+
+.Form_header {
+    background-color: rgb(49, 48, 48);
+    box-sizing: border-box;
+    margin-top: 5px;
+    margin-bottom: 30px;
+    margin-left: 35%;
+    margin-right: 35%;
+    padding: 1px;
+    color: white;
+    text-align: center;
+    align-items: center;
+    justify-content: space-around;
+}
+  
+.Form_input {
+    color: white;
+    background-color: rgb(37, 36, 36);
+    margin-inline-end: auto;
+    margin: 3%;
+    padding: 1%;
+    word-wrap: break-word;
+    text-align: justify;
+    text-justify: auto;
+}  
+
+.Login_button {
+    color: white;
+    background-color: rgb(175, 23, 23);
+    border-radius: 5px;
+    margin: 5%;
+    padding: 15px;
+    padding-block: 5px;
+    text-align: justify;
+    font-size: large;
+    align-self: flex-start;
+}
+
+.Login_button:hover {
+    background-color: rgb(247, 8, 8);
+}
