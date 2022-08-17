@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import AppCSS from './App.module.css';
 
 import Layout from './components/Layout/Layout';
-import BurgerBuilder from './containers/BurgerBuilder/BUrgerBuilder';
+import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
 
 class App extends Component {
   
