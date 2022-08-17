@@ -1,5 +1,6 @@
 import React, { Fragment} from "react";
 import Aux from '../../hoc/Aux';
+import LayoutCSS from './Layout.module.css';
 
 const layout = (props) => {
     return (
@@ -9,7 +10,7 @@ const layout = (props) => {
                 Sidedrawer,
                 Backdrop
             </div>
-            <main>
+            <main className={LayoutCSS.Content}>
                 {props.children}
             </main>
         </Fragment>
