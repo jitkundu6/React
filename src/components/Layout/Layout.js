@@ -1,22 +1,31 @@
-import React, { Fragment} from "react";
+import React, { Fragment, Component} from "react";
 import Aux from '../../hoc/Auxiliary';
 import LayoutCSS from './Layout.module.css';
 import Toolbar from "../Navigation/Toolbar/Toolbar";
 import SideDrawer from "../Navigation/SideDrawer/SideDrawer";
 
-const layout = (props) => {
-    return (
-        <Fragment>
-            <div>
+class Layout extends Component {
+    state = {
+        showSlideDrawer: true,
+    }
+
+    SideDrawerClosedHandler = () => {
+        this.setState({showSlideDrawer: false});
+    }
+
+    render() {
+        return (
+            <Fragment>
                 <Toolbar />
-                <SideDrawer />
-                Backdrop
-            </div>
-            <main className={LayoutCSS.Content}>
-                {props.children}
-            </main>
-        </Fragment>
-    );
+                <SideDrawer 
+                    open={this.state.showSlideDrawer}
+                    closed={this.SideDrawerClosedHandler}/>
+                <main className={LayoutCSS.Content}>
+                    {this.props.children}
+                </main>
+            </Fragment>
+        );
+    }
 }
 
-export default layout;
+export default Layout;
