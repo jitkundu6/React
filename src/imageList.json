@@ -1,0 +1,121 @@
+[
+    {
+        "id": 1,
+        "country": "India",
+        "state": "Tamil Nadu",
+        "city": "Chennai",
+        "image": "images/Chennai.jpg"
+    },
+    {
+        "id": 2,
+        "country": "India",
+        "state": "Tamil Nadu",
+        "city": "Chennai",
+        "image": "images/Chennai 2.jpg"
+    },
+    {
+        "id": 3,
+        "country": "India",
+        "state": "Tamil Nadu",
+        "city": "Madurai",
+        "image": "images/Madurai.jpg"
+    },
+    {
+        "id": 4,
+        "country": "India",
+        "state": "Tamil Nadu",
+        "city": "Coimbatore",
+        "image": "images/Coimbatore.jpg"
+    },
+    {
+        "id": 5,
+        "country": "India",
+        "state": "Tamil Nadu",
+        "city": "Tanjore",
+        "image": "images/Tanjore.jpg"
+    },
+    {
+        "id": 6,
+        "country": "India",
+        "state": "Karnataka",
+        "city": "Bangalore",
+        "image": "images/Bangalore.jpg"
+    },
+    {
+        "id": 7,
+        "country": "India",
+        "state": "Karnataka",
+        "city": "Mangalore",
+        "image": "images/Mangalore.jpg"
+    },
+    {
+        "id": 8,
+        "country": "India",
+        "state": "Karnataka",
+        "city": "Mysore",
+        "image": "images/Mysore.jpg"
+    },
+    {
+        "id": 9,
+        "country": "India",
+        "state": "Maharashtra",
+        "city": "Mumbai",
+        "image": "images/Mumbai.jpg"
+    },
+    {
+        "id": 10,
+        "country": "India",
+        "state": "Maharashtra",
+        "city": "Nagpur",
+        "image": "images/Nagpur.jpg"
+    },
+    {
+        "id": 11,
+        "country": "USA",
+        "state": "New York",
+        "city": "New York City",
+        "image": "images/New York City.jpg"
+    },
+    {
+        "id": 12,
+        "country": "USA",
+        "state": "New York",
+        "city": "New York City",
+        "image": "images/New York City 2.jpg"
+    },
+    {
+        "id": 13,
+        "country": "USA",
+        "state": "New York",
+        "city": "New York City",
+        "image": "images/New York City 3.jpg"
+    },
+    {
+        "id": 14,
+        "country": "USA",
+        "state": "New York",
+        "city": "Hudson Valley",
+        "image": "images/Hudson Valley.jpg"
+    },
+    {
+        "id": 15,
+        "country": "USA",
+        "state": "New York",
+        "city": "Long Island",
+        "image": "images/Long Island.jpg"
+    },
+    {
+        "id": 16,
+        "country": "USA",
+        "state": "New Jersey",
+        "city": "Vernon Township",
+        "image": "images/Vernon Township.jpg"
+    },
+    {
+        "id": 17,
+        "country": "USA",
+        "state": "New Jersey",
+        "city": "Hopewell Township",
+        "image": "images/Hopewell Township.jpg"
+    }
+]

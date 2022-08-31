@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  background-color: rgb(43, 44, 44);
 }
 
 .App-logo {
@@ -22,7 +23,10 @@
   font-size: large;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.Image {
+  height: 300px;
+  width: 400px;
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: 5px;
 }
