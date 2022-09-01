@@ -1,0 +1,51 @@
+
+.Card {
+    width: 95%;
+    height: 80px;
+    margin: 15px auto;
+    border: 0 2px 3px #000;
+    box-shadow: 0 3px 3px rgb(119, 148, 161);
+    background: white;
+    padding: 0px;
+    text-align: justify;
+    border-radius: 5px;
+    display: flex;
+    align-self: auto;
+}
+
+.Date_card {
+    width: 30%;
+    height: 90%;
+    margin: 5px auto;
+    padding-left: 20px;
+    border: 0 2px 3px #000;
+    background: rgb(184, 185, 185);
+    text-align: left;
+    border-radius: 5px;
+    display: flex;
+    align-self:right;
+}
+
+.Heading {
+    color: rgb(17, 66, 121);
+    text-align: left;
+    margin-left: 10px;
+}
+
+
+.Close_btn {
+    inline-size: auto;
+    position: relative;
+    align-self: right;
+    opacity: 0.5;
+    height: 32px;
+    width: 32px;
+    margin: 10px;
+    margin-top: 15px;
+    color: white;
+    background-color: rgb(228, 22, 22);
+}
+
+.Close_btn:hover {
+    opacity: 1;
+}

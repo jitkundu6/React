@@ -1,0 +1,31 @@
+.Box {
+    width: 30%;
+    margin: 5px auto;
+    border: 0 2px 3px #000;
+    box-shadow: 0 3px 3px rgb(119, 148, 161);
+    background: rgb(214, 216, 218);
+    padding: 5px;
+    text-align: center;
+    border-radius: 5px;
+}
+
+@media (max-width: 800px) {
+    .Box {
+        width: 80%;
+    }
+}
+
+.Heading {
+    color: rgb(17, 66, 121);
+    text-align: left;
+    margin-left: 20px;
+}
+
+.Add_task {
+    color: rgb(17, 66, 121);
+    text-align: left;
+    margin-left: 20px;
+}
+.Add_task:hover {
+    font-weight: bold;
+}
