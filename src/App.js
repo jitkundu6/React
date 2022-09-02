@@ -119,9 +119,9 @@ class App extends Component {
           {popup}
 
           <div className={AppCSS['App-body']}>
-            <TodoList title="OPEN" onCreate={this.CreateNewTaskHandler} onEdit={this.EditTaskHandler} onDelete={this.deleteTaskHandler} tasks={openTask}/>
-            <TodoList title="IN PROGRESS" onCreate={this.CreateNewTaskHandler} onEdit={this.EditTaskHandler} onDelete={this.deleteTaskHandler} tasks={inProgressTask}/>
-            <TodoList title="COMPLETED" onCreate={this.CreateNewTaskHandler} onEdit={this.EditTaskHandler} onDelete={this.deleteTaskHandler} tasks={completedTask}/>
+            <TodoList title="OPEN" refresh={this.closeTaskHandler} onCreate={this.CreateNewTaskHandler} onEdit={this.EditTaskHandler} onDelete={this.deleteTaskHandler} tasks={openTask}/>
+            <TodoList title="IN PROGRESS" refresh={this.closeTaskHandler} onCreate={this.CreateNewTaskHandler} onEdit={this.EditTaskHandler} onDelete={this.deleteTaskHandler} tasks={inProgressTask}/>
+            <TodoList title="COMPLETED" refresh={this.closeTaskHandler} onCreate={this.CreateNewTaskHandler} onEdit={this.EditTaskHandler} onDelete={this.deleteTaskHandler} tasks={completedTask}/>
           </div>
         </div>
     );
