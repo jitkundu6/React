@@ -2,13 +2,20 @@ import React from "react";
 import CardCSS from "./Card.module.css";
 
 const card = (props) => {
+    const date = new Date(props.task.due_date)
+    let cardClass = CardCSS.Date_card;
+    if(date < new Date()) {
+        cardClass = CardCSS.Expired_Date_card;
+    }
     return (
         <div className={CardCSS.Card}>
-            <h4 className={CardCSS.Heading}> IN PROGRESS </h4>
-            <div className={CardCSS.Date_card}>
-                <p> <strong> DUE ON: 12/12/2022 </strong> </p>
+            <div className={CardCSS.Card2} onClick={props.onEdit} draggable>
+                <h4 className={CardCSS.Heading}> {props.task.name} </h4>
+                <div className={cardClass}>
+                    <p> <strong> DUE ON: {date.toLocaleDateString()} </strong> </p>
+                </div>
             </div>
-            <button className={CardCSS.Close_btn} onClick={props}> X </button>
+            <button className={CardCSS.Close_btn} onClick={props.onDelete}> X </button>
         </div>
     );
 };
