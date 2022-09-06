@@ -1,127 +1,114 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React, { Component, Fragment } from 'react';
 import AppCSS from './App.module.css';
 
-import Person from './Person/Person';
+import Person from './components/Person/Person';
+import Toolbar from './components/Toolbar/Toolbar';
+import Input from './components/Input/Input';
 
 class App extends Component {
   state = {
     person: [
-      {name: "Micky", age: 5},
-      {name: "Mini", age: 4},
-      {name: "Donal", age: 6},      
+      {
+        id: 1,
+        first_name: "Micky",
+        last_name: "Micky",
+        gender: 5,
+        state: "WB",
+        city: "Kolkata",
+        start_date: "",
+        end_date: "",
+        ce: "",
+        cn: "",
+        cs: "",
+      },
     ],
-    otherState: "This is some other state.",
-    showPerson: true,
+
+    modify_record: true,
+    editID: 0,
+    active_page: 1,
+    list_view: false,
+
+    filter: {
+      first_name: "Micky",
+      last_name: "Micky",
+      gender: 5,
+      state: "WB",
+      city: "Kolkata",
+      crr: "",
+    },
   };
 
-  toggleHandler = () => {
-    console.log("Toggle button clicked.");
-    let showPerson = this.state.showPerson;
+  modifyRecordHandler = (modify, editID) => {
+    console.log("Creating/Editing new record...");
     this.setState({
-      showPerson: !showPerson,
+      modify_record: modify,
+      editID: editID,
     });
   }
 
-  switchNameHandler = (newName) => {
-    console.log("Switch name clicked.");
+  activePageHandler = (value) => {
+    console.log("Active Page: " + value);
     this.setState({
-        person: [
-          {name: newName, age: 7},
-          {name: "Mini", age: 4},
-          {name: "Donal", age: 9},      
-        ],
-      });
+      active_page: value,
+    });
   }
 
-  nameChangedHandler = (event) => {
-    console.log("Switch name clicked.");
+  listViewHandler = (value) => {
+    console.log("List View: " + value);
     this.setState({
-        person: [
-          {name: event.target.value, age: 7},
-          {name: "Mini", age: 4},
-          {name: "Donal", age: 9},      
-        ],
-      });
+      list_view: value,
+    });
   }
 
   render() {
     console.log(this.state);
-
-    // const btStyle = {
-    //   backgroundColor: 'green',
-    //   font: 'inherit',
-    //   border: '1px solid blue',
-    //   padding: '10px',
-    //   cursor: 'pointer',
-    //   color: 'white',
-    //   ':hover': {
-    //     backgroundColor: 'lightGreen',
-    //     color: 'black',
-    //   }
-    // };
-    let ButtonClasses = [AppCSS.Button]
-
+    let body = null
     let persons = null;
-    if(this.state.showPerson) {
+
+    if(!this.state.modify_record) {
       persons = (
-        <div>
+        <div className={AppCSS.Layout}>
           <Person 
-            name={this.state.person[0].name}
-            age={this.state.person[0].age}
-            changed={this.nameChangedHandler}
-          />
-          <Person 
-            name={this.state.person[1].name}
-            age={this.state.person[1].age}
-            click={this.switchNameHandler.bind(this, 'Funny Micky')}>
-              <button> I will make Micky funny! </button>
-          </Person>
-          <Person name={this.state.person[2].name} age={this.state.person[2].age} />
+            name={this.state.person[0].first_name + ' ' + this.state.person[0].last_name}
+            gender={this.state.person[0].gender}
+            state="" 
+            city=""
+            crr={0} 
+            image={""}
+            onDelete={this.toggleHandler}
+            onEdit={this.toggleHandler}
+            />
         </div>
       );
-      // btStyle.backgroundColor = 'red';
-      // btStyle['color'] = 'black';
-      // btStyle[':hover'] = {
-      //   backgroundColor: 'salmon',
-      //   color: 'black',
-      // };
-      ButtonClasses.push(AppCSS.Red_button);
+      body = (
+        <Fragment>
+          <Toolbar drawerToggleClicked={this.toggleHandler}/>
+          {persons}
+          <footer className={AppCSS.Footer}>
+            <button className={AppCSS.Button_Disabled} disabled={true}> First </button>
+            <button className={AppCSS.Button_Disabled} disabled={true}> Prev </button>
+            <button className={AppCSS.Button_Active} disabled={false}> 1 </button>
+            <button className={AppCSS.Button} disabled={false}> 1 </button>
+            <button className={AppCSS.Button} disabled={false}> 1 </button>
+            <button className={AppCSS.Button} disabled={false}> Next </button>
+            <button className={AppCSS.Button} disabled={false}> Last </button>
+          </footer>
+        </Fragment>
+      );
     }
-
-    // let classes = ['green'];
-    let classes = [AppCSS.green];
-
-    if (this.state.person.length <= 1 || persons === null) {
-      console.log(this.state.person.length);
-      // classes = ['red', 'bold'];
-      classes = [AppCSS.red, AppCSS.bold];
+    else {
+      body = (
+        <Input/>
+      );
     }
-
+  
     return (
         <div className={AppCSS.App}>
-          <header className={AppCSS['App-header']}>
-            <img src={logo} className={AppCSS["App-logo"]} alt="logo" />
-            <h1 className={AppCSS["App-title"]}>Welcome to React</h1>
-          </header>
-          <p className={AppCSS["App-intro"]}>
-            To get started, edit <code>src/App.js</code> and save to reload.
-          </p>
-
-          <h1> My 5th React app with User Input / Output + css module :-) </h1>
-          <button 
-            onClick={this.toggleHandler}
-            className={ButtonClasses.join(' ')}>
-              Toggle Persons
-          </button>
-          <p className={classes.join(' ')}>
-            List of Persons:
-          </p>
-          {persons}
+          <h1 className={AppCSS["App-intro"]}> 👤 Sales Person </h1>
+          {body}         
         </div>
     );
   }
-
 }
 
 export default App;

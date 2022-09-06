@@ -1,0 +1,81 @@
+.Toolbar{
+    width: 90%;
+    position: relative;
+    top: 5px;
+    left: 0;
+    background-color: white;
+    border-color: black;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content:space-between;
+    align-items:center;
+    box-sizing: border-box;
+    padding: 10px;
+    margin-left: 35px;
+}
+@media (max-width: 499px) {
+    .Toolbar{
+        top: 15px;
+        display: block;
+        align-content: left;
+        padding: 20px;
+        margin-left: 10px;
+    }
+}
+
+.Active_View{
+    border: 2px;
+    font-weight: bold;
+    background-color: rgb(211, 210, 210);
+    border-radius: 4px;
+    padding: 10px;
+}
+.Active_View:hover {
+    font-weight: bolder;
+    background-color: deepskyblue;
+}
+
+.Text_Button {
+    border: 2px;
+    background-color: white;
+    border-radius: 4px;
+    padding: 10px;
+    font-weight: bold;
+}
+.Text_Button:hover {
+    font-weight: bolder;
+    background-color: deepskyblue;
+}
+
+.Delete_Button {
+    background-color: rgb(233, 177, 94);
+    font: inherit;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 5px;
+    font-weight: bold;
+    color: black;
+}
+.Delete_Button:hover {
+    background-color: rgb(211, 5, 5);
+    color: white;
+}
+
+.Reset_Button {
+    background-color: rgb(89, 165, 236);
+    font: inherit;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 5px;
+    font-weight: bold;
+    color: black;
+}
+.Reset_Button:hover {
+    background-color: rgb(211, 5, 5);
+    color: white;
+}
+
+.Input {
+    width: 150px;
+    text-align: center;
+}
