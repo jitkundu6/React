@@ -6,7 +6,7 @@ class Task extends Component {
         id: 0,
         first_name: "",
         last_name: "",
-        gender: "",
+        gender: "NA",
         state: "",
         city: "",
         start_date: "",
@@ -14,20 +14,32 @@ class Task extends Component {
         ce: "",
         cn: "",
         cs: "",
+        image: "",
     };
 
     onChangeHandler = (event, key) => {
-        this.setState({
-            key: event.target.value,
-        });
+        let obj = {};
+        obj[key] = event.target.value;
+        this.setState(obj);
     }
 
     render() {
         let personDetails = this.state;
+        let persons = JSON.parse(localStorage.getItem('records') || '[]')
+            .filter(p => (p.id === this.props.editID));
+        
+        if(this.props.editID && persons.length > 0 && this.state.id === 0) {
+            personDetails = persons[0];
+            this.setState(personDetails);
+        }
+        
+        let head = "Create New Sales Person's Record";
+        if(this.props.editID)
+            head = "Edit Sales Person's Record";
         
         return (
             <div className={InputCSS.Form}>
-                <h2 className={InputCSS.Heading}> Create New Sales Person Record </h2>
+                <h2 className={InputCSS.Heading}> {head} </h2>
 
                 <form onSubmit={() => this.props.onSubmit(this.state)} style={{
                     textAlign: 'left',
@@ -46,9 +58,9 @@ class Task extends Component {
                     <div className={InputCSS.Input}>
                         <span> Gender : </span>
                         <select nmae="Gender" value={personDetails.gender} onChange={(e) => this.onChangeHandler(e, 'gender')} required>
+                            <option>NA</option>
                             <option>Male</option>
                             <option>Female</option>
-                            <option>Others</option>
                         </select>
                     </div>
 
@@ -94,11 +106,11 @@ class Task extends Component {
                     <br/>
                     <div>
                         <p> <strong>*</strong> Please fill all the fields </p>
-                        <button clicked={this.props.onCancel} className={InputCSS.Button_Cancel}>CANCEL</button>
                         <button type="submit" className={InputCSS.Button_Success}>SAVE</button>
                     </div>
                 </form>
 
+                <button onClick={this.props.onBack} className={InputCSS.Button_Cancel}>CANCEL</button>
             </div>
         );
     }

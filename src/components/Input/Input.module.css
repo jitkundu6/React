@@ -26,6 +26,7 @@
 }
 .Button_Success:hover {
     background-color: rgb(73, 209, 9);
+    cursor: pointer;
 }
 
 .Button_Cancel {
@@ -40,4 +41,5 @@
 }
 .Button_Cancel:hover {
     background-color: rgb(235, 28, 13);
+    cursor: pointer;
 }

@@ -33,6 +33,7 @@
 .Active_View:hover {
     font-weight: bolder;
     background-color: deepskyblue;
+    cursor: pointer;
 }
 
 .Text_Button {
@@ -45,6 +46,7 @@
 .Text_Button:hover {
     font-weight: bolder;
     background-color: deepskyblue;
+    cursor: pointer;
 }
 
 .Delete_Button {
@@ -59,6 +61,7 @@
 .Delete_Button:hover {
     background-color: rgb(211, 5, 5);
     color: white;
+    cursor: pointer;
 }
 
 .Reset_Button {
@@ -73,6 +76,7 @@
 .Reset_Button:hover {
     background-color: rgb(211, 5, 5);
     color: white;
+    cursor: pointer;
 }
 
 .Input {
