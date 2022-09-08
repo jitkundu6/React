@@ -1,0 +1,101 @@
+.App {
+  text-align: center;
+  width: 95%;
+  height: 100%;
+  display: inline-block;
+  padding-left: 4%;
+  padding-right: 4%;
+}
+
+.App-intro {
+  font-weight: bold;
+  color: #000;
+  text-align:left;
+  padding: 25px;
+  position: relative;
+  top: 0;
+  left: 20px;
+}
+
+.Layout {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+  top: 20px;
+  padding-left: 2%;
+}
+
+.Footer {
+  padding: 2%;
+  margin: 1%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  text-align: center;
+  place-items:inherit;
+}
+
+
+.Button {
+  padding: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
+  font-size: medium;
+  background-color: white;
+  color: rgb(20, 116, 206);
+  font-weight: bold;
+}
+
+.Button_Active {
+  padding: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
+  font-size: medium;
+  background-color: rgb(20, 116, 206);
+  color: white;
+  font-weight: bold;
+}
+
+.Button_Disabled {
+  padding: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
+  font-size: medium;
+  background-color: white;
+  color: gray;
+}
+
+
+.success {
+  color: green;
+}
+.warning {
+  color: rgb(189, 139, 3);
+}
+.fail {
+  color: red;
+}
+
+.Textbox {
+  display: flex;
+  flex-wrap: wrap;
+  width: inherit;
+  margin: 10px;
+  text-align: left;
+  align-items: center;
+  align-self: flex-start;
+}
+
+.Close_Button {
+  padding: 4px;
+  padding-left: 8px;
+  padding-right: 8px;
+  margin: 4px;
+  color: rgb(172, 3, 3);
+  cursor: pointer;
+}
+.Close_Button:hover {
+  color: white;
+  background-color: red;
+}

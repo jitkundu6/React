@@ -1,0 +1,123 @@
+.Body {
+    position: relative;
+    top: 0;
+    left: 0;
+    text-align: left;
+    margin-top: 40px;
+}
+
+.Form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content:space-between;    
+    border-radius: 5px;
+    text-align: left;
+    font-size: medium;
+    border: 1px solid gray;
+    width: fit-content;
+}
+
+.Form input {
+    text-align: left;
+    font-size: medium;
+    padding: 10px;
+    padding-left: 25px;
+    border: none;
+    width: inherit;  
+    border-radius: 5px;
+}
+
+.Form button {
+    padding: 10px;
+    font-size: medium;
+    color: white;
+    background-color: rgb(20, 116, 206);
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    min-width: 80px;
+}
+.Form button:hover {
+    background-color: #1d94f5;
+}
+
+.Footer {
+    border-radius: 10px;
+    margin-top: 50px;
+    width: inherit;
+    display: block;
+    align-self: center;
+    align-items: center;
+    height: fit-content;
+    width: fit-content;
+}
+
+.Button {
+    padding: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    font-size: medium;
+    background-color: white;
+    color: rgb(20, 116, 206);
+    font-weight: bold;
+    height: inherit;
+    width: inherit;
+}
+
+.Button_Active {
+    padding: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    font-size: medium;
+    background-color: rgb(20, 116, 206);
+    color: white;
+    font-weight: bold;
+    height: inherit;
+    width: inherit;
+}
+
+.Button_Disabled {
+    padding: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    font-size: medium;
+    background-color: white;
+    color: gray;
+    height: inherit;
+    width: inherit;
+}
+
+
+.Table {
+    margin-top: 25px;
+    margin-bottom: 25px;
+    border-collapse: collapse;
+    width: 100%;
+    border: 2px solid black;
+}
+
+.Table td, .Table th {
+    padding: 5px;
+    padding-left: 15px;
+    border: 1px solid black;
+    justify-content: space-between;
+}
+
+.Table tr:nth-child(even){background-color: #ccc;}
+
+.Table tr:hover {background-color: #aaa;}
+
+.Table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: gray;
+    color: white;
+}
+
+.Table td Button {
+    padding: 5px;
+    border: 1px solid black;
+    color: white;
+}
+

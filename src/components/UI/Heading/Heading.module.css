@@ -1,0 +1,19 @@
+.Head_Address_Book {
+    font-weight: bold;
+    color: #000;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    text-align: left;
+    display: flex;
+    flex-wrap: wrap;
+    align-self: center;
+}
+
+.Image {
+    height: 40px;
+    width: 40px;
+    text-align:left;
+    margin-top: 20px;
+    padding-right: 10px;
+}

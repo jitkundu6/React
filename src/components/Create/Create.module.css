@@ -1,0 +1,55 @@
+.Body {
+    position: relative;
+    top: 0;
+    left: 0;
+    text-align: left;
+    border: 2px solid black;
+    margin-top: 40px;
+    padding: 25px;
+}
+
+.Element {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content:space-between;
+    text-align: left;
+    padding-bottom: 10px;
+    padding-right: 50px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.Heading {
+    font-size: x-large;
+}
+
+.Line {
+    margin-bottom: 40px;
+    margin-right: 50px;
+    border-bottom: 3px solid;
+}
+
+.Input {
+    text-align: left;
+    font-size: medium;
+    padding: 10px;
+    width: 40%;
+}
+
+.Bottom {
+    text-align: center;
+    align-self: center;
+}
+
+.Close_Button {
+    padding: 4px;
+    padding-left: 8px;
+    padding-right: 8px;
+    margin: 4px;
+    color: rgb(172, 3, 3);
+    cursor: pointer;
+  }
+  .Close_Button:hover {
+    color: white;
+    background-color: red;
+  }
