@@ -1,15 +1,39 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import './App.css';
 
 import Form from './components/Form/Form';
 import ImageList from './imageList.json';
+import LoginForm from './components/LoginForm/LoginForm';
 
 class App extends Component {
   state = {
+    username: 'sk',
+    password: '1234',
+
     country: 'all',
     state: 'all',
     city: 'all',
   };
+
+  loginHandler = (value) => {
+    console.log("Login! ", value);
+    if(this.state.login) {
+      alert("User already Logged In !!");
+    }
+    else if(value.username === this.state.username && value.password === this.state.password){
+      sessionStorage.setItem("login", "true");
+      alert("Successfully Logged In !!");
+    }
+    else{
+      alert("Invalid Credentials, Please try again!");
+    }
+  }
+
+  logoutHandler = () => {
+      sessionStorage.setItem("login", "false");
+      this.resetHandler();
+      alert("Successfully Logged Out !!");
+  }
 
   resetHandler = () => {
     this.setState({
@@ -69,16 +93,27 @@ class App extends Component {
         );
     });
 
+    const loggedIn = JSON.parse(sessionStorage.getItem('login'));
+    let body = (<LoginForm onSubmit={this.loginHandler} title="Image Gallery"/>);
+    if(loggedIn) {
+        body = (
+          <Fragment>
+            <Form 
+              state={this.state}
+              onReset={this.resetHandler}
+              onLogout={this.logoutHandler}
+              countryHandler={this.countryHandler}
+              stateHandler={this.stateHandler}
+              cityHandler={this.cityHandler}
+            />
+            {images}
+          </Fragment>
+        );
+    }
+
     return (
       <div className="App">
-        <Form 
-          state={this.state}
-          onSubmit={this.resetHandler} 
-          countryHandler={this.countryHandler}
-          stateHandler={this.stateHandler}
-          cityHandler={this.cityHandler}
-        />
-        {images}
+        {body}
       </div>
     );
   }

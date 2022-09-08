@@ -41,7 +41,7 @@ class Form extends Component {
 
         return(
             <div className="Form">
-                <form onSubmit={() => this.props.onSubmit()}>     
+                <form onSubmit={() => this.props.onReset()}>     
                     <header className="Form_header">
                         <h2> Image Gallery </h2>
                     </header>
@@ -65,10 +65,11 @@ class Form extends Component {
                     </select>
 
                     <div>
-                        <button className="submit_button" type="submit"> RESET </button>
+                        <button className="submit_button" type="submit"> RESET FILTER </button>
                     </div>
                     </h3>
                 </form>
+                <button className="danger_button" onClick={this.props.onLogout}> LOGOUT </button>
             </div>
         );
     }
