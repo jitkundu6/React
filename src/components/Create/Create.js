@@ -2,6 +2,11 @@ import React, { Component } from "react";
 import CreateCSS from './Create.module.css';
 
 import Button from "../UI/Button/Button";
+import Message, {MESSAGE_SUCCESS, MESSAGE_WARNING, MESSAGE_FAIL} from "../UI/Message/Message";
+
+const MESSAGE_TEXT_NUMBER_ALREADY_EXIST = " Phone number already exist, Please try again with different number.";
+const MESSAGE_TEXT_EMAIL_ALREADY_EXIST = " Email ID already exist, Please try again with different email address.";
+const MESSAGE_INVALID_NUMBER = " Invalid Phone Number, number must have 10 digits."
 
 class Create extends Component {
     state = {
@@ -63,21 +68,105 @@ class Create extends Component {
         });
         this.setState(obj);
     }
+    
+    onChangePhoneNumber = (e, i) => {
+        let phone_records = JSON.parse(localStorage.getItem('records') || '[]')
+                    .filter(p => (p.id !== this.state.id))
+                    .filter((record) => {
+                           for(let i=0; i<record.phone_number.length; i++)
+                           {
+                            if(record.phone_number[i].phone === e.target.value)
+                                return record;
+                           }
+                    });
+        
+        if (phone_records && phone_records.length >= 1)
+        {
+            localStorage.setItem("login_msg", MESSAGE_TEXT_NUMBER_ALREADY_EXIST);
+            localStorage.setItem("login_msg_type", MESSAGE_FAIL);
+            this.setState({
+                id: this.state.id,
+            });
+            return;
+        }
+        this.onChangeArrayHandler(e, 'phone_number', i, 'phone');
+    }
+    
+    onSubmitHandler = () => {
+        let state = {...this.state};
+        let email_address = state.email_address.map(email => (email.email));
+        let phone_number = state.phone_number.map(phone => (phone.phone));
+        let records = JSON.parse(localStorage.getItem('records') || '[]')
+                        .filter(p => (p.id !== this.state.id));
+
+        let existing_email = records.filter((record) => {
+                                for(let i=0; i<record.email_address.length; i++)
+                                {
+                                    if (email_address.indexOf(record.email_address[i].email) >= 0)
+                                        return record.email_address[i].email;
+                                }
+                            });
+        if (existing_email && existing_email.length >= 1)
+        {
+            localStorage.setItem("login_msg", MESSAGE_TEXT_EMAIL_ALREADY_EXIST);
+            localStorage.setItem("login_msg_type", MESSAGE_FAIL);
+            return;
+        }
+
+        let existing_phone = records.filter((record) => {
+                                for(let i=0; i<record.phone_number.length; i++)
+                                {
+                                    if (phone_number.indexOf(record.phone_number[i].phone) >= 0)
+                                        return record.phone_number[i].phone;
+                                }
+                            });
+        if (existing_phone && existing_phone.length >= 1)
+        {
+            localStorage.setItem("login_msg", existing_phone[0] + MESSAGE_TEXT_NUMBER_ALREADY_EXIST);
+            localStorage.setItem("login_msg_type", MESSAGE_FAIL);
+            return;
+        }
+
+        for(let i=0; i<phone_number.length; i++)
+        {
+            let number_length = phone_number[i].length;
+            if (number_length !== 10) {
+                localStorage.setItem("login_msg", JSON.stringify(phone_number[i]) + MESSAGE_INVALID_NUMBER);
+                localStorage.setItem("login_msg_type", MESSAGE_FAIL);
+                return;
+            }
+        }
+
+        this.props.onSubmit(this.state);
+    }
 
     render() {
         let details = this.state;
-
-        let persons = JSON.parse(localStorage.getItem('records') || '[]')
-            .filter(p => (p.id === this.props.editID));
+        let record = this.props.record;
         
-        if(this.props.editID && persons.length > 0 && this.state.id === 0) {
-            details = persons[0];
+        if(this.props.editID && record && this.state.id === 0) {
+            details = record;
             this.setState(details);
         }
         
         let head = "Create New Record";
         if(this.props.editID)
             head = "Edit Record";
+        
+        let message_text = localStorage.getItem('login_msg');
+        let message_type = localStorage.getItem('login_msg_type');
+        localStorage.removeItem('login_msg');
+        let message = null;
+        let message_phone_err = null;
+        let message_email_err = null;
+        
+        if(message_text) {
+            message = <Message message_type={message_type} message={message_text} onClose={this.resetFilterHandler} />;
+            if (message_text === MESSAGE_TEXT_NUMBER_ALREADY_EXIST)
+                message_phone_err = message;
+            if (message_text === MESSAGE_TEXT_EMAIL_ALREADY_EXIST)
+                message_email_err = message;
+        }
 
         let address = details.address.map((addr, i) => {
             let close_btn = null;
@@ -134,7 +223,7 @@ class Create extends Component {
                 <div>
                     <p><b> Phone Number {i+1}</b> {close_btn} </p>
                     <div className={CreateCSS.Element}>
-                        <input className={CreateCSS.Input} type='text' placeholder="Phone Number" defaultValue={phone.phone} onChange={(e) => this.onChangeArrayHandler(e, 'phone_number', i, 'phone')} required/>
+                        <input className={CreateCSS.Input} type='number' placeholder="Phone Number" value={phone.phone} onChange={(e) => this.onChangePhoneNumber(e, i)} required/>
                         <select className={CreateCSS.Input} placeholder="Type" name="Type" value={phone.type} onChange={(e) => this.onChangeArrayHandler(e, 'phone_number', i, 'type')} required>
                             <option>Personal</option>
                             <option>Work</option>
@@ -146,9 +235,10 @@ class Create extends Component {
 
         return (
             <div className={CreateCSS.Body}>
-                <h2>{head}</h2>
+                {message}
+                <h1>{head}</h1>
                 
-                <form id="form1" onSubmit={() => this.props.onSubmit(this.state)} style={{
+                <form id="form1" onSubmit={() => this.onSubmitHandler()} style={{
                     textAlign: 'left',
                 }}>
                     <div className={CreateCSS.Element}>
@@ -166,6 +256,7 @@ class Create extends Component {
 
                     <div>
                         <p className={CreateCSS.Heading}> <strong> Email Address + </strong> </p>
+                        {message_email_err}
                         {email_address}
                         <Button name="label" btn_type="Primary" clicked={() => this.addItemHandler('email_address')}> Add </Button>
                         <p className={CreateCSS.Line}></p>
@@ -173,6 +264,7 @@ class Create extends Component {
 
                     <div>
                         <p className={CreateCSS.Heading}> <strong> Phone Number + </strong></p>
+                        {message_phone_err}
                         {phone_number}
                         <Button name="label" btn_type="Primary" clicked={() => this.addItemHandler('phone_number')}> Add </Button>
                         <p className={CreateCSS.Line}></p>

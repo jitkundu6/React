@@ -48,8 +48,8 @@
     margin: 4px;
     color: rgb(172, 3, 3);
     cursor: pointer;
-  }
-  .Close_Button:hover {
+}
+.Close_Button:hover {
     color: white;
     background-color: red;
-  }
+}

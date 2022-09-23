@@ -14,10 +14,10 @@ const layout = (props) => {
   else if (props.active_layout === "Create")
     createClass = LayoutCSS.Selected_Tab;
   
-  if (props.active_layout === "View" || props.active_layout === "Delete")
+  if (props.active_layout === "View" || props.active_layout === "Edit" || props.active_layout === "Delete")
     actionID = <Fragment>
-                  <p> &nbsp;&nbsp;/&nbsp;&nbsp; </p>
-                  <p> {props.actionID} </p>
+                  <p className={LayoutCSS.Selected_Tab}> &nbsp;&nbsp;/&nbsp;&nbsp; </p>
+                  <p className={LayoutCSS.DisabledLink}> {props.actionID} </p>
                 </Fragment>;
 
 
@@ -36,9 +36,9 @@ const layout = (props) => {
         </div>
         <div className={LayoutCSS.Body_Items}>
           <div className={LayoutCSS.Body_Head}>
-            <p className={LayoutCSS.Selected_Tab}> Address Book </p>
-            <p> &nbsp;&nbsp;/&nbsp;&nbsp; </p>
-            <p> {props.active_layout} </p>
+            <p onClick={props.onHome} className={LayoutCSS.Link}> Address Book </p>
+            <p className={LayoutCSS.Selected_Tab}> &nbsp;&nbsp;/&nbsp;&nbsp; </p>
+            <p className={LayoutCSS.DisabledLink}> {props.active_layout} </p>
             {actionID}
           </div>
           {props.children} 

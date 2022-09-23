@@ -4,10 +4,11 @@
     cursor: pointer;
     font: inherit;
     padding: 10px;
+    margin: 2px;
+    margin-right: 40px;
     font-weight: bold;
     border-radius: 5px;
     min-width: 80px;
-    margin-right: 50px;
     color: #eee;
 }
 

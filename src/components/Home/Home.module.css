@@ -34,10 +34,10 @@
     background-color: rgb(20, 116, 206);
     font-weight: bold;
     border: none;
-    cursor: pointer;
     min-width: 80px;
 }
 .Form button:hover {
+    cursor: pointer;
     background-color: #1d94f5;
 }
 

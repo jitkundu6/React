@@ -9,6 +9,7 @@ import Home from './components/Home/Home';
 import Modal from './components/UI/Modal/Modal';
 import Login from './components/Login/Login';
 import Button from './components/UI/Button/Button';
+import Message, {MESSAGE_SUCCESS, MESSAGE_WARNING, MESSAGE_FAIL} from './components/UI/Message/Message';
 
 const ADMIN = {
     username: "Subhajit",
@@ -25,53 +26,23 @@ const ACTION_FORGOT_PASSWORD = "ForgotPassword";
 
 class App extends Component {
   state = {
-    person: [
-      {
-        id: 1,
-        first_name: "Micky",
-        last_name: "Micky",
-        address: [
-          {
-            line1: "",
-            line2: "",
-            city: "Kolkata",
-            state: "WB",
-            country: "India",
-            zip_code: "700123",
-            type: "",
-          },
-        ],
-        email_address: [
-          {
-            email: "",
-            type: "",
-          },
-        ],
-        phone_number: [
-          {
-            phone: "",
-            type: "",
-          },
-        ],
-
-      },
-    ],
-
-    action: ACTION_HOME,
-    actionID: 0,
-    active_page: 1,
-
-    search: "",
     sort_by: {
       key: "first_name",
       direction: "asc"
     },
   };
 
+  sortingHandler = (value) => {
+    this.setState({
+      sort_by: {
+        key: value.key,
+        direction: value.direction,
+      },
+    });
+  }
 
   resetFilterHandler = () => {
     this.setState({
-      search: "",
       sort_by: {
         key: "first_name",
         direction: "asc",
@@ -90,15 +61,21 @@ class App extends Component {
 
   saveRecordHandler = (record) => {
     console.log("Creating/Editing record...");
+    let last_id = 0;
 
-    let records = JSON.parse(localStorage.getItem('records') || '[]');
+    let records = JSON.parse(localStorage.getItem('records') || '[]')
+                  .filter(p => {
+                    if (last_id < p.id)
+                      last_id = p.id;
+                    return(p.id !== record.id);
+                  });
     if(record.id === 0)
-      record.id = records.length + 1;
+      record.id = last_id + 1;
     records.push(record);
     localStorage.setItem('records', JSON.stringify(records));
 
     localStorage.setItem("login_msg", "Record is successfully saved !!");
-    localStorage.setItem("login_msg_type", "success");
+    localStorage.setItem("login_msg_type", MESSAGE_SUCCESS);
     localStorage.setItem("action", ACTION_HOME);
     this.resetFilterHandler();
   }
@@ -114,7 +91,7 @@ class App extends Component {
 
     this.setActionHandler(ACTION_HOME);
     localStorage.setItem("login_msg", "Record has been deleted !!");
-    localStorage.setItem("login_msg_type", "warning");
+    localStorage.setItem("login_msg_type", MESSAGE_WARNING);
     alert("Record deleted.");
   }
 
@@ -122,31 +99,22 @@ class App extends Component {
     localStorage.setItem('records', '[]');
     this.setActionHandler(ACTION_HOME);
     localStorage.setItem("login_msg", "All records have been deleted !!");
-    localStorage.setItem("login_msg_type", "warning");
+    localStorage.setItem("login_msg_type", MESSAGE_WARNING);
     alert("All records deleted.");
   }
   
-  initModifyRecordHandler = (id) => {
-    console.log("Modifying record...");
-    this.setState({
-      actionID: id,
-    });
-    this.setActionHandler(ACTION_EDIT);
-  }
-  
-  initDeleteRecordHandler = (id) => {
-    console.log("Deleting record...");
-    this.setState({
-      actionID: id,
-    });
-    this.setActionHandler(ACTION_DELETE);
+  initActionRecordHandler = (id, action) => { // init Edit, Delete or View
+    console.log(action + " record...");
+    localStorage.setItem("action", action);
+    localStorage.setItem("actionID", id);
+    this.resetFilterHandler();
   }
 
   loginHandler = (value, forgotPassword) => {
     if(forgotPassword) {
       localStorage.setItem("action", ACTION_HOME);
       localStorage.setItem("login_msg", "Please check your email and follow the instructions to reset your password.");
-      localStorage.setItem("login_msg_type", "success");
+      localStorage.setItem("login_msg_type", MESSAGE_SUCCESS);
     }
     else {
       console.log("Login! ", value);
@@ -157,13 +125,13 @@ class App extends Component {
       else if(value.email === ADMIN.email && value.password === ADMIN.password){
         sessionStorage.setItem("login", "true");
         localStorage.setItem("login_msg", "Successfully Logged In !!");
-        localStorage.setItem("login_msg_type", "success");
+        localStorage.setItem("login_msg_type", MESSAGE_SUCCESS);
         localStorage.setItem("action", ACTION_HOME);
       }
       else{
         alert("Invalid Credentials, Please try again!");
         localStorage.setItem("login_msg", "Invalid Credentials, Please try again!");
-        localStorage.setItem("login_msg_type", "fail");
+        localStorage.setItem("login_msg_type", MESSAGE_FAIL);
       }
     }
   }
@@ -173,19 +141,13 @@ class App extends Component {
       this.resetFilterHandler();
       alert("Successfully Logged Out !!");
       localStorage.setItem("login_msg", "Successfully Logged Out !!");
-      localStorage.setItem("login_msg_type", "success");
+      localStorage.setItem("login_msg_type", MESSAGE_SUCCESS);
       localStorage.setItem("action", ACTION_HOME);
-  }
-
-  activePageHandler = (value) => {
-    console.log("Active Page: " + value);
-    this.setState({
-      active_page: value,
-    });
   }
 
   render() {
     console.log(this.state);
+    let actionID = JSON.parse(localStorage.getItem('actionID') || '0');
 
     let login = JSON.parse(sessionStorage.getItem('login') || 'false');
     let action = localStorage.getItem('action');
@@ -195,12 +157,8 @@ class App extends Component {
     localStorage.removeItem('login_msg');
 
     if(message) {
-        message = <div className={AppCSS.Textbox}>
-                      <p className={AppCSS[message_type]}> {message} &nbsp;&nbsp; </p>
-                      <div className={AppCSS.Close_Button} onClick={this.resetFilterHandler}> <strong> x </strong></div>
-                  </div>;
+        message = <Message message_type={message_type} message={message} onClose={this.resetFilterHandler} />;
     }
-
 
     let body = <Login 
                   forgotPassword={false}
@@ -212,21 +170,26 @@ class App extends Component {
                 </Login>;
 
     if(login) {
-      let persons = null;
       let modal = null;
       let active_layout = ACTION_HOME;
-      let layout_body = <Home onDeleteAll={() => this.initDeleteRecordHandler(0)}/>;
+      let layout_body = <Home 
+                          onDeleteAll={() => this.initActionRecordHandler(0, ACTION_DELETE)}
+                          initAction={this.initActionRecordHandler}
+                        />;
+
+      let records = JSON.parse(localStorage.getItem('records') || '[]')
+                        .filter(p => (p.id === actionID));
 
       if (action === ACTION_DELETE)
       {
-        let warning_msg = "Are you sure you want to delete the address book?";
-        if (this.state.actionID === 0)
+        let warning_msg = "Are you sure you want to delete the address book record " + JSON.stringify(actionID) + " ?";
+        if (actionID === 0)
           warning_msg = "Are you sure you want to delete all the address book records?";
         
         modal = <Modal show={true} modalClosed={this.onBackHandler}>
                   <div className={AppCSS['App-intro']}>
                     <p> <strong> {warning_msg} </strong> </p>
-                    <Button btn_type="Danger" clicked={() => this.deleteRecordHandler(this.state.actionID)} > Delete </Button>
+                    <Button btn_type="Danger" clicked={() => this.deleteRecordHandler(actionID)} > Delete </Button>
                     <Button btn_type="Warning" clicked={this.onBackHandler} > Cancel </Button>
                   </div>
                 </Modal>;
@@ -239,18 +202,18 @@ class App extends Component {
       else if (action === ACTION_EDIT)
       {
         active_layout = ACTION_EDIT;
-        layout_body = <Create editID={this.state.editID} onSubmit={this.saveRecordHandler} onBack={this.onBackHandler} />;
+        layout_body = <Create editID={actionID} record={records[0]} onSubmit={this.saveRecordHandler} onBack={this.onBackHandler} />;
       }
       else if (action === ACTION_VIEW)
       {
         active_layout = ACTION_VIEW;
-        layout_body = <View />;
+        layout_body = <View record={records[0]}/>;
       }
 
       body = <Layout
                 username={ADMIN.username}
                 active_layout={active_layout}
-                actionID={this.state.actionID}
+                actionID={actionID}
                 onCreate={() => this.setActionHandler(ACTION_CREATE)}
                 onHome={() => this.setActionHandler(ACTION_HOME)}
                 onSignOut={this.logoutHandler}

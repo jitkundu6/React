@@ -69,8 +69,13 @@
     border: 2px solid black;
 }
 
-.Selected_Tab {
+.Selected_Tab .Link{
     color: #0576d3;
+}
+.Link:hover {
+    cursor: pointer;
+    text-decoration: underline;
+    color: #005ba5;
 }
 
 .Tab {
@@ -80,4 +85,8 @@
 .Tab:hover {
     color: #0576d3;
     font-weight: bolder;
+}
+
+.DisabledLink {
+    color: rgb(56, 56, 56);
 }

@@ -1,0 +1,32 @@
+.Textbox {
+    display: flex;
+    flex-wrap: wrap;
+    width: inherit;
+    margin: 10px;
+    text-align: left;
+    align-items: center;
+    align-self: flex-start;
+}
+
+.Success {
+    color: green;
+}
+.Warning {
+    color: rgb(189, 139, 3);
+}
+.Fail {
+    color: red;
+}
+
+.Close_Button {
+    padding: 4px;
+    padding-left: 8px;
+    padding-right: 8px;
+    margin: 4px;
+    color: rgb(172, 3, 3);
+    cursor: pointer;
+}
+.Close_Button:hover {
+    color: white;
+    background-color: red;
+}
